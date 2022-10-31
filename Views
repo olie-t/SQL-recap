@@ -1,0 +1,46 @@
+select * from dept_emp;
+
+SELECT 
+    emp_no, from_date, to_date, COUNT(emp_no) AS num
+FROM
+    dept_emp
+GROUP BY emp_no
+HAVING num > 1;
+
+CREATE OR REPLACE VIEW v_dept_employee_latest_date AS
+    SELECT 
+        emp_no, MAX(from_date) AS from_date, MAX(to_date) AS to_date
+    FROM
+        dept_emp
+    GROUP BY emp_no;
+    
+      SELECT 
+        emp_no, MAX(from_date) AS from_date, MAX(to_date) AS to_date
+    FROM
+        dept_emp
+    GROUP BY emp_no;
+    
+    select * from employees.v_dept_employee_latest_date;
+    
+    Select * from dept_manager;
+    
+    select * from salaries;
+    
+    SELECT 
+     round(AVG(s.salary),2)
+FROM
+    dept_manager dm
+        JOIN
+    salaries s ON dm.emp_no = s.emp_no
+;
+
+
+    CREATE OR REPLACE VIEW v_managers_salaries_avg AS
+    SELECT 
+        ROUND(AVG(s.salary), 2) as manager_avg_salary
+    FROM
+        dept_manager dm
+            JOIN
+        salaries s ON dm.emp_no = s.emp_no;
+        
+        select * from employees.v_managers_salaries_avg;
